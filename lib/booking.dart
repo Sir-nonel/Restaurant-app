@@ -1,4 +1,3 @@
-
 class Booking {
   final String name;
   final String address;
@@ -21,7 +20,16 @@ class Booking {
     required this.guests,
     required this.requests,
   });
-  
-}
 
-Navigator.pop(context, bookingObject); // instead of setState or printing
+  factory Booking.empty() => Booking(
+    name: '',
+    address: '',
+    phone: '',
+    email: '',
+    date: '',
+    time: '',
+    duration: '',
+    guests: 0,
+    requests: '',
+  );
+}

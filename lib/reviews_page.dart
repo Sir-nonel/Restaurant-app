@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ReviewsPage extends StatefulWidget {
   final String userName;
-  const ReviewsPage({Key? key}) : super(key: key);
+  const ReviewsPage({super.key, this.userName = "Anonymous"});
 
   @override
   _ReviewsPageState createState() => _ReviewsPageState();
@@ -11,25 +11,25 @@ class ReviewsPage extends StatefulWidget {
 class _ReviewsPageState extends State<ReviewsPage> {
   final TextEditingController _reviewController = TextEditingController();
   double _userRating = 0;
-  final List<Map<String, dynamic>> _reviews = [];
+  final List<Map<String, dynamic>> reviews = [];
 
   void _submitReview() {
+    reviews.add({
+      'name': widget.userName,
+      'rating': _userRating,
+      'review': _reviewController.text,
+      'date': DateTime.now().toString().split(' ')[0],
+    });
+
     if (_userRating == 0) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text('Please select a rating!')));
       return;
-
-      _reviews.add({
-        'name': widget.userName,
-        'rating': _userRating,
-        'review': _reviewController.text,
-        'date': DateTime.now().toString().split(' ')[0],
-      });
     }
 
     setState(() {
-      _reviews.add({
+      reviews.add({
         'rating': _userRating,
         'review': _reviewController.text,
         'date': DateTime.now().toString().split(' ')[0], // Format: YYYY-MM-DD
@@ -100,12 +100,12 @@ class _ReviewsPageState extends State<ReviewsPage> {
             const Divider(),
             Expanded(
               child:
-                  _reviews.isEmpty
+                  reviews.isEmpty
                       ? const Center(child: Text('No reviews yet.'))
                       : ListView.builder(
-                        itemCount: _reviews.length,
+                        itemCount: reviews.length,
                         itemBuilder: (context, index) {
-                          final review = _reviews[index];
+                          final review = reviews[index];
                           return Card(
                             margin: const EdgeInsets.only(bottom: 10),
                             child: Padding(

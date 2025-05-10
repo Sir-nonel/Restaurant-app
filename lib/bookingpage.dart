@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'booking.dart';
+import 'menu.dart';
 
 void main() => runApp(RestaurantApp());
 
@@ -84,19 +86,36 @@ class _BookingPageState extends State<BookingPage> {
       String formattedDate = DateFormat('yyyy-MM-dd').format(_reservationDate!);
       String formattedTime = _reservationTime!.format(context);
       String info = '''
-Name: ${_nameController.text}
-Address: ${_addressController.text}
-Phone: ${_phoneController.text}
-Email: ${_emailController.text}
-Date: $formattedDate
-Time: $formattedTime
-Duration: $_duration
-Guests: $_guests
-Requests: ${_additionalRequestController.text}
-''';
+        Name: ${_nameController.text}
+        Address: ${_addressController.text}
+        Phone: ${_phoneController.text}
+        Email: ${_emailController.text}
+        Date: $formattedDate
+        Time: $formattedTime
+        Duration: $_duration
+        Guests: $_guests
+        Requests: ${_additionalRequestController.text}
+        ''';
 
       setState(() {
-        _displayInfo = info;
+        final bookingObject = Booking(
+          name: _nameController.text,
+          address: _addressController.text,
+          phone: _phoneController.text,
+          email: _emailController.text,
+          date: formattedDate,
+          time: formattedTime,
+          duration: _duration!,
+          guests: _guests!,
+          requests: _additionalRequestController.text,
+        );
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => MenuPage(booking: bookingObject),
+          ),
+        );
       });
 
       _saveDataLocally(info); // Save to shared preferences

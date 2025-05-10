@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'booking.dart';
-import 'discount.dart';
-import 'restaurant_main.dart';
-import 'bookingpage.dart';
 
 class ReceiptPage extends StatelessWidget {
   final double total;

@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'menu.dart';
+import 'booking.dart';
+import 'receipt.dart';
+import 'bookingpage.dart';
 
 class DiscountPage extends StatefulWidget {
   final List<CartItem> cart;
   final double totalBeforeDiscount;
   final VoidCallback onPaymentConfirmed;
 
+  final Booking booking;
+
   const DiscountPage({
     super.key,
     required this.cart,
     required this.totalBeforeDiscount,
     required this.onPaymentConfirmed,
+    required this.booking,
   });
 
   @override
@@ -136,10 +142,8 @@ class DiscountPageState extends State<DiscountPage> {
       context,
       MaterialPageRoute(
         builder:
-            (context) => ReceiptPage(
-              total: finalPrice,
-              booking: widget.booking!, // pass the stored booking
-            ),
+            (context) =>
+                ReceiptPage(total: finalPrice, booking: widget.booking),
       ),
     );
   }

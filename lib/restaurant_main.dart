@@ -3,6 +3,8 @@ import 'discount.dart';
 import 'cart.dart';
 import 'menu.dart';
 import 'reviews_page.dart';
+import 'booking.dart';
+import 'bookingpage.dart';
 
 class RestaurantApp extends StatefulWidget {
   final Cart cart = Cart();
@@ -30,7 +32,7 @@ class RestaurantAppState extends State<RestaurantApp> {
 
   Booking? currentBooking;
 
-  void _navigateToBookingPage() async {
+  void navigateToBookingPage() async {
     final booking = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => BookingPage()),
@@ -46,11 +48,13 @@ class RestaurantAppState extends State<RestaurantApp> {
   @override
   Widget build(BuildContext context) {
     final pages = [
+      BookingPage(),
       MenuPage(cart: widget.cart, onAddToCart: addToCart),
       DiscountPage(
         cart: widget.cart.items,
         totalBeforeDiscount: widget.cart.totalPrice,
         onPaymentConfirmed: resetCart,
+        booking: currentBooking ?? Booking.empty(),
       ),
       const ReviewsPage(),
     ];
