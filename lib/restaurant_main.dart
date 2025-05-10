@@ -28,6 +28,21 @@ class RestaurantAppState extends State<RestaurantApp> {
     });
   }
 
+  Booking? currentBooking;
+
+  void _navigateToBookingPage() async {
+    final booking = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BookingPage()),
+    );
+
+    if (booking != null && booking is Booking) {
+      setState(() {
+        currentBooking = booking;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final pages = [
@@ -95,11 +110,8 @@ class RestaurantAppState extends State<RestaurantApp> {
           unselectedItemColor: Colors.grey,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.restaurant_home),
-              label: 'Home',
-            BottomNavigationBarItem(
-              icon: Icon(Icons.restaurant_menu),
-              label: 'Menu',
+              icon: Icon(Icons.book_online),
+              label: 'Booking',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.discount),

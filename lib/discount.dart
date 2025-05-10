@@ -132,7 +132,16 @@ class DiscountPageState extends State<DiscountPage> {
       finalPrice = widget.totalBeforeDiscount;
     });
 
-    _showDialog('Payment Confirmed', 'Thank you! Your payment was successful.');
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder:
+            (context) => ReceiptPage(
+              total: finalPrice,
+              booking: widget.booking!, // pass the stored booking
+            ),
+      ),
+    );
   }
 
   @override

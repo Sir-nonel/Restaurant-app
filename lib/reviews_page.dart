@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ReviewsPage extends StatefulWidget {
+  final String userName;
   const ReviewsPage({Key? key}) : super(key: key);
 
   @override
@@ -18,6 +19,13 @@ class _ReviewsPageState extends State<ReviewsPage> {
         context,
       ).showSnackBar(const SnackBar(content: Text('Please select a rating!')));
       return;
+
+      _reviews.add({
+        'name': widget.userName,
+        'rating': _userRating,
+        'review': _reviewController.text,
+        'date': DateTime.now().toString().split(' ')[0],
+      });
     }
 
     setState(() {
