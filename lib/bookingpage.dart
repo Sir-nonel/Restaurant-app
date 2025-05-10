@@ -113,12 +113,13 @@ class _BookingPageState extends State<BookingPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => MenuPage(booking: bookingObject),
+            builder:
+                (context) => MenuPage(cart: cartObject, booking: bookingObject),
           ),
         );
       });
 
-      _saveDataLocally(info); // Save to shared preferences
+      _saveDataLocally(info);
     } else {
       setState(() {
         _displayInfo = "Please fill out all required fields correctly.";
